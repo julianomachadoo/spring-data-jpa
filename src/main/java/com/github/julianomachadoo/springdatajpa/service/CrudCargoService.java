@@ -9,6 +9,7 @@ import java.util.Scanner;
 @Service
 public class CrudCargoService {
 
+    private boolean system = true;
     private final CargoRepository cargoRepository;
 
     public CrudCargoService(CargoRepository cargoRepository) {
@@ -16,6 +17,22 @@ public class CrudCargoService {
     }
 
     public void inicial(Scanner scanner) {
+
+        while (system == true) {
+        System.out.println();
+            System.out.println("Qual ação de cargo deseja executar?");
+            System.out.println("0 - Sair");
+            System.out.println("1 - Salvar");
+            System.out.println("2 - Atualizar");
+
+            int action = scanner.nextInt();
+
+            switch (action) {
+                case 1 -> salvar(scanner);
+                case 2 -> atualizar(scanner);
+                default -> system = false;
+            }
+        }
         salvar(scanner);
     }
 
@@ -26,5 +43,18 @@ public class CrudCargoService {
         cargo.setDescricao(descricao);
         cargoRepository.save(cargo);
         System.out.println("Salvo!");
+    }
+
+    public void atualizar(Scanner scanner) {
+        System.out.println("Id:");
+        Integer id = scanner.nextInt();
+        System.out.println("Descrição:");
+        String descricao = scanner.next();
+
+        Cargo cargo = new Cargo();
+        cargo.setId(id);
+        cargo.setDescricao(descricao);
+        cargoRepository.save(cargo);
+        System.out.println("Atualizado!");
     }
 }
