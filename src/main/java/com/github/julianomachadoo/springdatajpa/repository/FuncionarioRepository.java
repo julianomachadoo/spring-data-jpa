@@ -1,9 +1,10 @@
 package com.github.julianomachadoo.springdatajpa.repository;
 
 import com.github.julianomachadoo.springdatajpa.orm.Funcionario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -19,4 +20,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     //    @Query( value = "SELECT * FROM funcionarios f WHERE f.data_contratacao >= :data", nativeQuery = true)
     @Query("SELECT f FROM Funcionario f WHERE f.dataContratacao >= :data")
     List<Funcionario> findDataContratacaoMaior(LocalDate data);
+
+    Page<Funcionario> findAll(Pageable pageable);
 }
