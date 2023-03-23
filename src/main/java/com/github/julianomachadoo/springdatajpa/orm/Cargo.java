@@ -1,6 +1,7 @@
 package com.github.julianomachadoo.springdatajpa.orm;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Cargo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
-    @OneToMany(mappedBy = "cargo")
+    @OneToMany(mappedBy = "cargo", fetch = FetchType.EAGER)
     private List<Funcionario> funcionario;
 
     public Cargo() {
