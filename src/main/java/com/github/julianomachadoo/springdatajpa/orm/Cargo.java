@@ -2,6 +2,8 @@ package com.github.julianomachadoo.springdatajpa.orm;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cargos")
 public class Cargo {
@@ -10,6 +12,8 @@ public class Cargo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
+    @OneToMany(mappedBy = "cargo")
+    private List<Funcionario> funcionario;
 
     public Cargo() {
     }
@@ -28,5 +32,13 @@ public class Cargo {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Cargo{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                '}';
     }
 }
