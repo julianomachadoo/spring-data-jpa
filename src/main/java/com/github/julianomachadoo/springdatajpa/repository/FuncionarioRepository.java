@@ -1,6 +1,7 @@
 package com.github.julianomachadoo.springdatajpa.repository;
 
 import com.github.julianomachadoo.springdatajpa.orm.Funcionario;
+import com.github.julianomachadoo.springdatajpa.orm.FuncionarioProjecao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     List<Funcionario> findDataContratacaoMaior(LocalDate data);
 
     Page<Funcionario> findAll(Pageable pageable);
+
+    @Query(value = "SELECT f.id, f.nome, f.salario FROM funcionarios f",
+            nativeQuery = true)
+    List<FuncionarioProjecao> findFuncionarioSalario();
 }

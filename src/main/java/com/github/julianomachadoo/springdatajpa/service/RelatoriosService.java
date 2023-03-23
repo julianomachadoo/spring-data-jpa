@@ -1,6 +1,7 @@
 package com.github.julianomachadoo.springdatajpa.service;
 
 import com.github.julianomachadoo.springdatajpa.orm.Funcionario;
+import com.github.julianomachadoo.springdatajpa.orm.FuncionarioProjecao;
 import com.github.julianomachadoo.springdatajpa.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,8 @@ public class RelatoriosService {
             System.out.println("0 - Sair");
             System.out.println("1 - Busca funcionario por nome");
             System.out.println("2 - Busca funcionario por nome, data contratacao e salario maior");
-            System.out.println("3 - Busca funcionario data contratacao");
+            System.out.println("3 - Busca funcionario por data contratacao");
+            System.out.println("4 - Busca funcionario por salario");
 
             int action = scanner.nextInt();
 
@@ -36,6 +38,7 @@ public class RelatoriosService {
                 case 1 -> buscaFuncionarioPorNome(scanner);
                 case 2 -> buscaFuncionarioNomeSalarioMaiorData(scanner);
                 case 3 -> buscaFuncionarioDataContratacao(scanner);
+                case 4 -> buscarPorFuncionarioSalario();
                 default -> system = false;
             }
         }
@@ -71,5 +74,11 @@ public class RelatoriosService {
 
         List<Funcionario> funcionarios = funcionarioRepository.findDataContratacaoMaior(localDate);
         funcionarios.forEach(System.out::println);
+    }
+
+    private void buscarPorFuncionarioSalario() {
+        List<FuncionarioProjecao> funcionarios = funcionarioRepository.findFuncionarioSalario();
+        funcionarios.forEach(f -> System.out.println("Funcionario: id: " + f.getId() +
+                " | nome: " + f.getNome() + " | salario: " + f.getSalario()));
     }
 }
